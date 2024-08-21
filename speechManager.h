@@ -7,7 +7,9 @@
 
 #include <iostream>
 using namespace std;
-
+#include <vector>
+#include <map>
+#include "speaker.h"
 
 class speechManager {
 public:
@@ -23,6 +25,25 @@ public:
 
     //distructor
     ~speechManager();
+
+    //init the attributes
+    void initSpeech();
+
+    //member attributes
+    //save the first round player numbers container
+    vector<int> v1;
+
+    //save the first round qualifiers
+    vector<int> v2;
+
+    //Top three players
+    vector<int> victory;
+
+    //save the numbers and the corresponding player name
+    map<int, Speaker> m_Speaker;
+
+    //indicate the rounds
+    int index;
 };
 
 

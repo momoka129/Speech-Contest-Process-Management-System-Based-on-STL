@@ -6,6 +6,8 @@
 
 speechManager::speechManager() {
 
+    //init container and rounds
+    this->initSpeech();
 }
 
 void speechManager::show_Menu() {
@@ -22,6 +24,18 @@ void speechManager::exitSystem() {
     cout<<"Welcome next use..."<<endl;
     system("pause");
     exit(0);
+}
+
+void speechManager::initSpeech() {
+
+    //all set to empty
+    this->v1.clear();
+    this->v2.clear();
+    this->victory.clear();
+    this->m_Speaker.clear();
+
+    //init rounds
+    this->index = 1;
 }
 
 speechManager::~speechManager() {
