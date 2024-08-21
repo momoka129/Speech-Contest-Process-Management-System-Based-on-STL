@@ -10,6 +10,7 @@ using namespace std;
 #include <vector>
 #include <map>
 #include "speaker.h"
+#include <algorithm>
 
 class speechManager {
 public:
@@ -31,6 +32,12 @@ public:
 
     //create player
     void createSpeaker();
+
+    //start the contest!
+    void startSpeech();
+
+    //draw
+    void speech_draw();
 
     //member attributes
     //save the first round player numbers container

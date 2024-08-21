@@ -22,6 +22,7 @@ int main() {
         switch (choice) {
             //start the contest
             case 1:
+                sm.startSpeech();
                 break;
 
             //check the previous records

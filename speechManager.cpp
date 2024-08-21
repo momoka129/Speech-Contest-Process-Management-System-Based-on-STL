@@ -62,6 +62,48 @@ void speechManager::createSpeaker() {
     }
 }
 
+void speechManager::startSpeech() {
+    //first round
+    //1. draw
+    this->speech_draw();
+
+    //2. speech
+
+    //3. announce the qualifiers
+
+    //final round
+    //1. draw
+
+    //2.speech
+
+    //3.show the final result
+
+    //4. record the score
+}
+
+void speechManager::speech_draw() {
+    cout<<"The == "<<this->index<<" == "<<"round draw: "<<endl;
+    cout<<"-----------------------------------"<<endl;
+    cout<<"The results of the draw are as follows:"<<endl;
+    if(this->index ==1){
+        //first round
+        random_shuffle(v1.begin(), v1.end());
+        for(vector<int>::iterator it = v1.begin(); it != v1.end(); it++){
+            cout<<*it<<" ";
+        }
+        cout<<endl;
+    } else{
+        //final round
+        random_shuffle(v2.begin(), v2.end());
+        for(vector<int>::iterator it = v2.begin(); it != v2.end(); it++){
+            cout<<*it<<" ";
+        }
+        cout<<endl;
+    }
+    system("pause");
+    cout<<endl;
+}
+
 speechManager::~speechManager() {
 
 }
