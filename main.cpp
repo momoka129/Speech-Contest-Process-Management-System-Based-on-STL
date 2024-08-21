@@ -6,6 +6,10 @@ int main() {
 
     speechManager sm;
 
+    for(map<int, Speaker>::iterator it = sm.m_Speaker.begin(); it != sm.m_Speaker.end(); it++){
+        cout<<"player number: "<<it->first<<"\tname: "<<it->second.name<<"\tscore: "<<it->second.score[0]<<endl;
+    }
+
     int choice;
 
     while(true){

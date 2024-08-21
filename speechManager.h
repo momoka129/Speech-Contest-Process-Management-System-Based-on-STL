@@ -29,6 +29,9 @@ public:
     //init the attributes
     void initSpeech();
 
+    //create player
+    void createSpeaker();
+
     //member attributes
     //save the first round player numbers container
     vector<int> v1;

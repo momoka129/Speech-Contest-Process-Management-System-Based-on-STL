@@ -5,9 +5,11 @@
 #include "speechManager.h"
 
 speechManager::speechManager() {
-
     //init container and rounds
     this->initSpeech();
+
+    //create 12 player
+    this->createSpeaker();
 }
 
 void speechManager::show_Menu() {
@@ -36,6 +38,28 @@ void speechManager::initSpeech() {
 
     //init rounds
     this->index = 1;
+}
+
+void speechManager::createSpeaker() {
+    string nameSeed = "ABCDEFGHIJKL";
+    for(int i = 0; i < nameSeed.size(); i++){
+        string name = "Player";
+        name += nameSeed[i];
+
+        //create specific player
+        Speaker sp;
+
+        sp.name = name;
+        for(int j = 0; j < 2; j++){
+            sp.score[j] = 0;
+        }
+
+        //Create a player number and put it in the v1 container
+        this->v1.push_back(i + 10001);
+
+        //The player number and the corresponding player are placed in the map container
+        this->m_Speaker.insert(make_pair(i+10001, sp));
+    }
 }
 
 speechManager::~speechManager() {
