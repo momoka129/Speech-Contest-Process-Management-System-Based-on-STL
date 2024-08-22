@@ -11,6 +11,8 @@ using namespace std;
 #include <map>
 #include "speaker.h"
 #include <algorithm>
+#include <deque>
+#include <numeric>
 
 class speechManager {
 public:
@@ -38,6 +40,9 @@ public:
 
     //draw
     void speech_draw();
+
+    //contest
+    void speech_contest();
 
     //member attributes
     //save the first round player numbers container

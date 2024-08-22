@@ -18,14 +18,15 @@ void speechManager::show_Menu() {
     cout<<"1. Start a Speech Contest"<<endl;
     cout<<"2. View previous records"<<endl;
     cout<<"3. Clear contest records"<<endl;
-    cout<<"4. exit the program"<<endl;
+    cout<<"0. exit the program"<<endl;
     cout<<"*************************************************"<<endl;
 }
 
 void speechManager::exitSystem() {
     cout<<"Welcome next use..."<<endl;
-    system("pause");
-    exit(0);
+    //system("pause");
+    //exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 void speechManager::initSpeech() {
@@ -68,6 +69,7 @@ void speechManager::startSpeech() {
     this->speech_draw();
 
     //2. speech
+    this->speech_contest();
 
     //3. announce the qualifiers
 
@@ -83,7 +85,6 @@ void speechManager::startSpeech() {
 
 void speechManager::speech_draw() {
     cout<<"The == "<<this->index<<" == "<<"round draw: "<<endl;
-    cout<<"-----------------------------------"<<endl;
     cout<<"The results of the draw are as follows:"<<endl;
     if(this->index ==1){
         //first round
@@ -100,8 +101,90 @@ void speechManager::speech_draw() {
         }
         cout<<endl;
     }
-    system("pause");
+    //system("pause");
     cout<<endl;
+}
+
+void speechManager::speech_contest() {
+
+    //prepare a temperate container to storage the group scores
+    multimap<double, int, greater<double>> groupScore;
+
+    int num = 0;    //record the number of players      6 people one group
+
+    cout<<"The -- "<< this->index<<" -- round contest starts!"<<endl;
+
+    vector<int> v_src;  //player container
+    if(this->index == 1){
+        v_src = v1;
+    } else{
+        v_src = v2;
+    }
+
+    //traverse all player to contest
+    for(vector<int>::iterator it = v_src.begin(); it != v_src.end(); it++){
+        //add one player
+        num++;
+        //judges' Ratings
+        //cout<<"\nThe 10 judges' ratings: "<<endl;
+        deque<double> d;
+        for(int i = 0; i < 10; i++){
+            double score = (rand()%401 + 600) / 10.0;   //60~100
+            //cout<<score<<" ";
+            d.push_back(score);
+        }
+        //cout<<endl;
+
+        //sort
+        sort(d.begin(), d.end(), greater<double>());
+
+        //cout<<"Remove the highest score <"<<d.front()<<"> and the lowest scores <"<<d.back()<<">"<<endl;
+        //remove highest and lowest
+        d.pop_back();
+        d.pop_front();
+
+        double sum = accumulate(d.begin(), d.end(), 0.0);
+        double avg = sum / (double)d.size();
+
+        //print average score
+        //cout<<"Serial number: "<<*it<<"\tName: "<<this->m_Speaker[*it].name<<"\tAverage score: "<<avg<<endl;
+
+        //put the average score into the map container
+        this->m_Speaker[*it].score[this->index - 1] = avg;
+
+        //put average score into the temperate container
+        groupScore.insert(make_pair(avg, *it));     //key: score;  value: serial number
+
+        //The top three players are selected from every six players of one group
+        if(num % 6 == 0){
+            cout<<"\nThe <"<< num/6<<"> group contest ranking: "<<endl;
+            for(multimap<double, int, greater<double>>::iterator temp = groupScore.begin(); temp != groupScore.end(); temp++){
+                cout<<"The serial number: "<<temp->second<<"\tName: "<<this->m_Speaker[temp->second].name
+                <<"\tScore: "<<this->m_Speaker[temp->second].score[this->index-1]<<endl;
+            }
+
+            //take top three
+            int count = 0;
+            for(multimap<double, int, greater<double>>::iterator temp = groupScore.begin(); temp != groupScore.end(); temp++){
+                if(count < 3){
+                    if(this->index == 1){
+                        this->v2.push_back(temp->second);
+                        count++;
+                    } else{
+                        this->victory.push_back(temp->second);
+                    }
+                } else{
+                    break;
+                }
+            }
+
+            //clear temp container
+            groupScore.clear();
+        }
+        //cout<<endl;
+    }
+    cout<<"\nThe <"<< this->index<<"> round contest over!"<<endl;
+    //system("pause");
 }
 
 speechManager::~speechManager() {
