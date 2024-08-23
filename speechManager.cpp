@@ -66,6 +66,7 @@ void speechManager::createSpeaker() {
 void speechManager::Process_contest() {
     //first round
     //1. draw
+    cout<<"#####################################################################"<<endl;
     this->speech_draw();
     cout<<endl;
 
@@ -75,17 +76,24 @@ void speechManager::Process_contest() {
 
     //3. announce the qualifiers
     this->speech_showScore();
-    cout<<endl;
+    cout<<"#####################################################################"<<endl;
+
+    cout<<endl;cout<<endl;
 
     //final round
+    this->index++;
     //1. draw
+    cout<<"#####################################################################"<<endl;
+    this->speech_draw();
     cout<<endl;
 
     //2.speech
+    this->speech_contest();
     cout<<endl;
 
     //3.show the final result
-    cout<<endl;
+    this->speech_showScore();
+    cout<<"#####################################################################"<<endl;
 
     //4. record the score
     cout<<endl;
@@ -120,7 +128,7 @@ void speechManager::speech_contest() {
 
     int num = 0;    //record the number of players      6 people one group
 
-    cout<<"The -- "<< this->index<<" -- round contest starts!"<<endl;
+    cout<<"The --- "<< this->index<<" --- round contest starts!"<<endl;
 
     vector<int> v_src;  //player container
     if(this->index == 1){
@@ -165,7 +173,7 @@ void speechManager::speech_contest() {
 
         //The top three players are selected from every six players of one group
         if(num % 6 == 0){
-            cout<<"\nThe <"<< num/6<<"> group contest ranking: "<<endl;
+            cout<<"\nThe (( "<< num/6<<" )) group contest ranking: "<<endl;
             for(multimap<double, int, greater<double>>::iterator temp = groupScore.begin(); temp != groupScore.end(); temp++){
                 cout<<"The serial number: "<<temp->second<<"\tName: "<<this->m_Speaker[temp->second].name
                 <<"\tScore: "<<this->m_Speaker[temp->second].score[this->index-1]<<endl;
@@ -180,6 +188,7 @@ void speechManager::speech_contest() {
                         count++;
                     } else{
                         this->victory.push_back(temp->second);
+                        count++;
                     }
                 } else{
                     break;
@@ -191,7 +200,8 @@ void speechManager::speech_contest() {
         }
         //cout<<endl;
     }
-    cout<<"The <"<< this->index<<"> round contest over!"<<endl;
+    cout<<endl;
+    cout<<"The --- "<< this->index<<" --- round contest over!"<<endl;
     //system("pause");
 }
 
@@ -209,7 +219,7 @@ void speechManager::speech_showScore() {
         cout<<"The player serial number: "<<*it<<"\tName: "<<this->m_Speaker[*it].name
         <<"\tScore: "<<this->m_Speaker[*it].score[this->index-1]<<endl;
     }
-    cout<<endl;
+    //cout<<endl;
 
     //this->show_Menu();
 }
