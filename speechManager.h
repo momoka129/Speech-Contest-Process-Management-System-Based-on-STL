@@ -36,13 +36,16 @@ public:
     void createSpeaker();
 
     //start the contest!
-    void startSpeech();
+    void Process_contest();
 
     //draw
     void speech_draw();
 
     //contest
     void speech_contest();
+
+    //show the score
+    void speech_showScore();
 
     //member attributes
     //save the first round player numbers container

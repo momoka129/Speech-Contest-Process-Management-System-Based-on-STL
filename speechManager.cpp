@@ -63,24 +63,32 @@ void speechManager::createSpeaker() {
     }
 }
 
-void speechManager::startSpeech() {
+void speechManager::Process_contest() {
     //first round
     //1. draw
     this->speech_draw();
+    cout<<endl;
 
     //2. speech
     this->speech_contest();
+    cout<<endl;
 
     //3. announce the qualifiers
+    this->speech_showScore();
+    cout<<endl;
 
     //final round
     //1. draw
+    cout<<endl;
 
     //2.speech
+    cout<<endl;
 
     //3.show the final result
+    cout<<endl;
 
     //4. record the score
+    cout<<endl;
 }
 
 void speechManager::speech_draw() {
@@ -102,7 +110,7 @@ void speechManager::speech_draw() {
         cout<<endl;
     }
     //system("pause");
-    cout<<endl;
+    //cout<<endl;
 }
 
 void speechManager::speech_contest() {
@@ -183,8 +191,27 @@ void speechManager::speech_contest() {
         }
         //cout<<endl;
     }
-    cout<<"\nThe <"<< this->index<<"> round contest over!"<<endl;
+    cout<<"The <"<< this->index<<"> round contest over!"<<endl;
     //system("pause");
+}
+
+void speechManager::speech_showScore() {
+    cout<<"The <"<<this->index<<"> round qualified player info: "<<endl;
+
+    vector<int> v;
+
+    if(this->index == 1){
+        v = this->v2;
+    } else{
+        v = this->victory;
+    }
+    for(vector<int>::iterator it = v.begin(); it != v.end(); it++){
+        cout<<"The player serial number: "<<*it<<"\tName: "<<this->m_Speaker[*it].name
+        <<"\tScore: "<<this->m_Speaker[*it].score[this->index-1]<<endl;
+    }
+    cout<<endl;
+
+    //this->show_Menu();
 }
 
 speechManager::~speechManager() {

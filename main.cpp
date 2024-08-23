@@ -24,7 +24,7 @@ int main() {
         switch (choice) {
             //start the contest
             case 1:
-                sm.startSpeech();
+                sm.Process_contest();
                 break;
 
             //check the previous records
