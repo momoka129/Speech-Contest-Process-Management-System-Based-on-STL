@@ -78,6 +78,9 @@ public:
 
     //indicate the rounds
     int index;
+
+    //clear the file
+    void clear_Record();
 };
 
 

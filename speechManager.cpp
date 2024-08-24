@@ -39,6 +39,7 @@ void speechManager::initSpeech() {
     this->v2.clear();
     this->victory.clear();
     this->m_Speaker.clear();
+    this->m_Record.clear();
 
     //init rounds
     this->index = 1;
@@ -103,6 +104,17 @@ void speechManager::Process_contest() {
     this->save_Record();
 
     cout<<"The contest process is over!"<<endl;
+
+    //reset the contest & get the record
+    //speechManager();
+    //init container and rounds
+    this->initSpeech();
+
+    //create 12 player
+    this->createSpeaker();
+
+    //load previous record
+    this->load_Record();
 }
 
 void speechManager::speech_draw() {
@@ -313,12 +325,43 @@ void speechManager::show_Record() {
 //        cout<<"Second place: "<<this->m_Record[i][2]<<" with a score of "<<this->m_Record[i][3]<<endl;
 //        cout<<"Third place: "<<this->m_Record[i][4]<<" with a score of "<<this->m_Record[i][5]<<endl;
 //    }
-    for(int i = 0; i < this->m_Record.size(); i++){
-        cout<<"The "<<i+1<<" th contest top three: "<<endl;
-        cout<<"Champion: "<<this->m_Record[i][0]<<"\t with a score of "<<this->m_Record[i][1]<<endl;
-        cout<<"Second place: "<<this->m_Record[i][2]<<"\t with a score of "<<this->m_Record[i][3]<<endl;
-        cout<<"Third place: "<<this->m_Record[i][4]<<"\t with a score of "<<this->m_Record[i][5]<<endl;
-        cout<<endl;
+    if (this->file_empty){
+        cout<<"The file is empty or does not exist!"<<endl;
+    } else{
+        for(int i = 0; i < this->m_Record.size(); i++){
+            cout<<"The "<<i+1<<" th contest top three: "<<endl;
+            cout<<"Champion: "<<this->m_Record[i][0]<<"\t with a score of "<<this->m_Record[i][1]<<endl;
+            cout<<"Second place: "<<this->m_Record[i][2]<<"\t with a score of "<<this->m_Record[i][3]<<endl;
+            cout<<"Third place: "<<this->m_Record[i][4]<<"\t with a score of "<<this->m_Record[i][5]<<endl;
+            cout<<endl;
+        }
+    }
+}
+
+void speechManager::clear_Record() {
+    cout<<"Are you sure to clear the file?"<<endl;
+    cout<<"1. YES"<<endl;
+    cout<<"2. NO"<<endl;
+
+    int select = 0;
+    cin>>select;
+
+    if(select == 1){
+        ofstream ofs("speech.csv", ios::trunc);
+
+        ofs.close();
+
+        //speechManager();
+        //init container and rounds
+        this->initSpeech();
+
+        //create 12 player
+        this->createSpeaker();
+
+        //load previous record
+        this->load_Record();
+
+        cout<<"Clear successfully!"<<endl;
     }
 }
 

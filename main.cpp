@@ -1,8 +1,11 @@
 #include <iostream>
 using namespace std;
 #include "speechManager.h"
+#include <ctime>
 
 int main() {
+
+    srand((unsigned int)time(NULL));
 
     speechManager sm;
 
@@ -35,7 +38,7 @@ int main() {
 
             //clear the records
             case 3:
-
+                sm.clear_Record();
                 break;
 
             //exit the program
