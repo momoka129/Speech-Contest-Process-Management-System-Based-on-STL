@@ -13,6 +13,7 @@ using namespace std;
 #include <algorithm>
 #include <deque>
 #include <numeric>
+#include <fstream>
 
 class speechManager {
 public:
@@ -46,6 +47,9 @@ public:
 
     //show the score
     void speech_showScore();
+
+    //save every contest data
+    void save_Record();
 
     //member attributes
     //save the first round player numbers container

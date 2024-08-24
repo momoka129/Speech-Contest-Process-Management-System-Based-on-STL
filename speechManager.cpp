@@ -97,6 +97,9 @@ void speechManager::Process_contest() {
 
     //4. record the score
     cout<<endl;
+    this->save_Record();
+
+    cout<<"The contest process is over!"<<endl;
 }
 
 void speechManager::speech_draw() {
@@ -222,6 +225,21 @@ void speechManager::speech_showScore() {
     //cout<<endl;
 
     //this->show_Menu();
+}
+
+void speechManager::save_Record() {
+    ofstream ofs;
+
+    ofs.open("speech.csv", ios::out | ios::app);    //append way to write file
+
+    for(vector<int>::iterator it = victory.begin(); it != victory.end(); it++){
+        ofs<<*it<<","<<this->m_Speaker[*it].score[1]<<",";
+    }
+    ofs<<endl;
+
+    ofs.close();
+
+    cout<<"The data have been recorded!"<<endl;
 }
 
 speechManager::~speechManager() {
