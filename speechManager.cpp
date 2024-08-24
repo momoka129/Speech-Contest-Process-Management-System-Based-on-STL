@@ -10,6 +10,9 @@ speechManager::speechManager() {
 
     //create 12 player
     this->createSpeaker();
+
+    //load previous record
+    this->load_Record();
 }
 
 void speechManager::show_Menu() {
@@ -233,13 +236,90 @@ void speechManager::save_Record() {
     ofs.open("speech.csv", ios::out | ios::app);    //append way to write file
 
     for(vector<int>::iterator it = victory.begin(); it != victory.end(); it++){
-        ofs<<*it<<","<<this->m_Speaker[*it].score[1]<<",";
+        ofs<<this->m_Speaker[*it].name<<","<<this->m_Speaker[*it].score[1]<<",";
     }
     ofs<<endl;
 
     ofs.close();
 
     cout<<"The data have been recorded!"<<endl;
+
+    this->file_empty = false;
+}
+
+void speechManager::load_Record() {
+    ifstream ifs("speech.csv", ios::in);
+
+    if(!ifs.is_open()){
+        this->file_empty = true;
+        //cout<<"file name is wrong!"<<endl;
+        ifs.close();
+        return;
+    }
+
+    //file is cleared
+    char ch;
+    ifs>>ch;
+    if(ifs.eof()){
+        //cout<<"The file is empty."<<endl;
+        this->file_empty = true;
+        ifs.close();
+        return;
+    }
+
+    //file not empty
+    this->file_empty = false;
+
+    ifs.putback(ch);    //Put the single character read above back
+
+    string data;
+    int ind;
+
+    while(ifs>>data){
+        //cout<<data<<endl;
+
+        //store 6 strings
+        vector<string> v;
+
+
+        int pos = -1;   //find ','
+        int start = 0;
+
+        while(true){
+            pos = data.find(",", start);
+            if(pos == -1){
+                break;
+            }
+
+            string temp = data.substr(start, pos - start);
+            //cout<<temp;
+            v.push_back(temp);
+
+            start = pos + 1;
+        }
+
+        this->m_Record.insert(make_pair(ind, v));
+        ind++;
+    }
+
+    ifs.close();
+
+}
+
+void speechManager::show_Record() {
+//    for(map<int, vector<string>>::iterator it = m_Record.begin(); it != m_Record.end(); it++){
+//        cout<<"The "<<index<<" th contest top three: "<<endl;
+//        cout<<"Champion: "<<this->m_Record[i][0]<<" with a score of "<<this->m_Record[i][1]<<endl;
+//        cout<<"Second place: "<<this->m_Record[i][2]<<" with a score of "<<this->m_Record[i][3]<<endl;
+//        cout<<"Third place: "<<this->m_Record[i][4]<<" with a score of "<<this->m_Record[i][5]<<endl;
+//    }
+    for(int i = 0; i < this->m_Record.size(); i++){
+        cout<<"The "<<i+1<<" th contest top three: "<<endl;
+        cout<<"Champion: "<<this->m_Record[i][0]<<"\t with a score of "<<this->m_Record[i][1]<<endl;
+        cout<<"Second place: "<<this->m_Record[i][2]<<"\t with a score of "<<this->m_Record[i][3]<<endl;
+        cout<<"Third place: "<<this->m_Record[i][4]<<"\t with a score of "<<this->m_Record[i][5]<<endl;
+        cout<<endl;
+    }
 }
 
 speechManager::~speechManager() {

@@ -51,6 +51,18 @@ public:
     //save every contest data
     void save_Record();
 
+    //read the record
+    void load_Record();
+
+    //tell if the file is empty
+    bool file_empty;
+
+    //storage each contest record
+    map<int, vector<string>> m_Record;
+
+    //show record
+    void show_Record();
+
     //member attributes
     //save the first round player numbers container
     vector<int> v1;

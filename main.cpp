@@ -29,10 +29,13 @@ int main() {
 
             //check the previous records
             case 2:
+                //sm.load_Record();
+                sm.show_Record();
                 break;
 
             //clear the records
             case 3:
+
                 break;
 
             //exit the program
